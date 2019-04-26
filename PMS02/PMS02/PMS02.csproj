@@ -218,6 +218,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\PMController.cs" />
+    <Compile Include="Controllers\TLController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -234,6 +235,7 @@
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\Responding_Post.cs" />
+    <Compile Include="Models\Responding_Request.cs" />
     <Compile Include="Models\Sending_Request.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -254,6 +256,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\TL\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904260359508_InitialMigration.resx">

@@ -25,6 +25,7 @@ namespace PMS02.Models
             Responding_Post = new HashSet<Responding_Post>();
             Sending_Request = new HashSet<Sending_Request>();
             Sending_Request1 = new HashSet<Sending_Request>();
+            Responding_Request = new HashSet<Responding_Request>();
         }
 
         [Key]
@@ -109,5 +110,8 @@ namespace PMS02.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sending_Request> Sending_Request1 { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Responding_Request> Responding_Request { get; set; }
     }
 }
