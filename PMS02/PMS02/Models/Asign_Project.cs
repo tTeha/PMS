@@ -8,7 +8,8 @@ namespace PMS02.Models
 
     public partial class Asign_Project
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
+        [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         public int? Project_Manager_ID { get; set; }

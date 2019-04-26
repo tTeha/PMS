@@ -1,8 +1,286 @@
-﻿
+﻿@model IEnumerable<object>
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<PMS02.Models.Project> listposts = Model.ToList()[0] as List<PMS02.Models.Project>;
+    List<PMS02.Models.User> listuser = Model.ToList()[1] as List<PMS02.Models.User>;
+    byte[] photo = (byte[])Session["photo"];
+    var img = "";
+    var first = "TEha";
+    var last = "Abdo";
+    var mobile = "01141336724";
+    var jop = "jop";
+    var role = "PM";
+    var id = 1;
 }
 
-<h2>Index</h2>
+@if (true)
+{
+    using (Html.BeginForm("Logout", "Home", FormMethod.Post, new { id = "logoutform" }))
+    {
+        <nav class="navbar navbar-inverse ">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Manageitforyou.com</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
+
+                    </ul>
+                    <a href="@Url.Action("Index", "PM")" class="btn btn-primary">My profile<span class="glyphicon glyphicon-user"></span></a>
+
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <li><p class="navbar-text">@HttpContext.Current.User.Identity.Name</p></li>
+
+                        <li><a href="javascript:document.getElementById('logoutform').submit()"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    }
+
+    <div class="container-fluid text-center">
+        <div class="row">
+            <div class="col-sm-2 well table-responsive ">
+                <div class="well ">
+                    <p>Profile Information</p>
+                    <img src="" class="img-responsive img-circle" />
+                </div>
+
+                <table class="table table-condensed table-hover">
+                    <tr>
+                        <td class="danger">First Name</td>
+                        <td class="success"><strong>@first</strong></td>
+
+                    </tr>
+                    <tr>
+                        <td class="danger">Last Name </td>
+                        <td class="success"><strong>@last</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="danger"> Job Description </td>
+                        <td class="success"><strong>@jop</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="danger">Mobile  </td>
+                        <td class="success"><strong>@mobile</strong></td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="col-md-10">
+
+                <div class="row ">
+                    <div class="col-sm-12">
+                        <div class="panel panel-success" style="max-height:500px ;min-height:500px;overflow-y:scroll">
+                            <div class="panel-heading">
+                                All Current and previous Projects You Managed
+                            </div>
+                            <div class="panel-body table-responsive ">
+
+                                <table class="table table-condensed table-bordered table-hover ">
+                                    <tr class="danger text-capitalize">
+                                        <th>
+                                            current Status
+                                        </th>
+                                        <th>
+                                            Project Details
+                                        </th>
+                                        <th>
+                                            Posted by
+                                        </th>
+                                        <th>Leave</th>
+                                        <th>Change Status</th>
+                                        <th>Comment</th>
+                                        <th>Send Request</th>
+                                    </tr>
+
+                                    @foreach (var item in listposts)
+                                    {
+
+                                        if (item.Project_Manager_ID == 2)
+                                        {
+
+
+                                            <tr class="success text-capitalize">
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.status)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Post.post_desc)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Post.User.User_Name)
+                                                </td>
+
+
+                                                <td>
+                                                    @if (item.status != "Delivered")
+                                                    {
+                                                        using (Html.BeginForm("Leave", "PM", new { postid = @item.postID }, FormMethod.Post))
+                                                        {
+                                                            Html.AntiForgeryToken();
+
+                                                            <button type="submit" value="Leave" class="btn btn-success btn btn-sm"><span class="glyphicon glyphicon-remove"></span>Leave</button>
+
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <p>Disabled</p>
+                                                    }
+
+
+                                                </td>
+                                                <td>
+                                                    @if (item.status != "Delivered")
+                                                    {
+
+                                                        <a href="@Url.Action("SetStatus", "PM", new { id = @item.projectID })" class="btn btn-primary">Change<span class="glyphicon glyphicon-edit"></span></a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p>Disabled</p>
+                                                    }
+
+                                                </td>
+
+                                                <td>
+                                                    @if (item.status != "Delivered")
+                                                    {
+                                                        <a href="@Url.Action("Comment", "PM",new { postid = @item.postID })" class="btn btn-primary">Comment <span class="glyphicon glyphicon-comment"></span></a>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <p>Disabled</p>
+                                                    }
+
+
+
+                                                </td>
+
+
+                                                <td>
+                                                    @if (item.status != "Delivered")
+                                                    {
+                                                        using (Html.BeginForm("SendRequest", "PM", new { senderid = id, postid = @item.postID }, FormMethod.Post))
+                                                        {
+                                                            Html.AntiForgeryToken();
+
+
+                                                            <input id="Text1" type="email" required name="mail" />
+                                                            <button type="submit" value="SendRequest" class="btn btn-primary btn btn-sm"><span class="glyphicon glyphicon-send"></span>Send</button>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <p>Disabled</p>
+                                                    }
+
+
+
+                                                </td>
+
+
+
+                                            </tr>
+
+
+
+                                        }
+
+                                    }
+
+
+
+                                </table>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-sm-12">
+                        <div class="panel panel-success" style="max-height:500px ;min-height:500px;overflow-y:scroll">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Available Team Leaders And Junior Engineers</h3>
+                            </div>
+                            <div class="panel-body table-responsive">
+                                <table class="table table-condensed table-bordered table-hover">
+
+                                    <tr class="danger">
+
+                                        <th>
+                                            Actor Name
+                                        </th>
+
+                                        <th>
+                                            Actor Email
+                                        </th>
+
+                                        <th>
+                                            Actor Job
+                                        </th>
+
+
+                                    </tr>
+
+                                    @foreach (var user in listuser)
+                                    {
+                                        <tr class="success">
+
+                                            <td>
+                                                @Html.DisplayFor(model => user.User_Name)
+                                            </td>
+
+                                            <td>
+                                                @Html.DisplayFor(model => user.Email)
+                                            </td>
+
+                                            <td>
+                                                @Html.DisplayFor(model => user.Job_Description)
+                                            </td>
+
+
+
+
+                                        </tr>
+
+
+                                    }
+
+
+
+
+
+
+
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+}
 

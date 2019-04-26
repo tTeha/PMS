@@ -27,7 +27,8 @@ namespace PMS02.Models
             Sending_Request1 = new HashSet<Sending_Request>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
+        [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
         public int userID { get; set; }
 
         [Required]

@@ -147,7 +147,7 @@ C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\bin\System.Web.Webpages.Razor.xml
 C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\bin\System.Web.Helpers.xml
 C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\bin\System.Web.Mvc.xml
 C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.csprojResolveAssemblyReference.cache
-C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.InitialMigration.resources
-C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.csproj.GenerateResource.Cache
 C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.dll
 C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.pdb
+C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.InitialMigration.resources
+C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.csproj.GenerateResource.Cache

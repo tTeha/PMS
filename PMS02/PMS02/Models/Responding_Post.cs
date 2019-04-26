@@ -8,7 +8,8 @@ namespace PMS02.Models
 
     public partial class Responding_Post
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
+        [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         public int? Post_ID { get; set; }

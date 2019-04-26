@@ -8,7 +8,8 @@ namespace PMS02.Models
 
     public partial class Give_Feedback
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
+        [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         public int? Team_Leader_ID { get; set; }

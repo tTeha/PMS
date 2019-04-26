@@ -13,7 +13,7 @@ namespace PMS02.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201904252307295_InitialMigration"; }
+            get { return "201904260359508_InitialMigration"; }
         }
         
         string IMigrationMetadata.Source

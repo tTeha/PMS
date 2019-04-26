@@ -11,7 +11,7 @@ namespace PMS02.Migrations
                 "dbo.Asign_Project",
                 c => new
                     {
-                        ID = c.Int(nullable: false),
+                        ID = c.Int(nullable: false, identity: true),
                         Project_Manager_ID = c.Int(),
                         UserID = c.Int(),
                         post_ID = c.Int(),
@@ -28,7 +28,7 @@ namespace PMS02.Migrations
                 "dbo.Post",
                 c => new
                     {
-                        postID = c.Int(nullable: false),
+                        postID = c.Int(nullable: false, identity: true),
                         post_header = c.String(nullable: false, maxLength: 200, fixedLength: true),
                         post_desc = c.String(nullable: false, maxLength: 50, fixedLength: true),
                         created_date = c.DateTime(nullable: false),
@@ -43,7 +43,7 @@ namespace PMS02.Migrations
                 "dbo.Comment",
                 c => new
                     {
-                        ID = c.Int(nullable: false),
+                        ID = c.Int(nullable: false, identity: true),
                         Project_Manager_ID = c.Int(),
                         Post_ID = c.Int(),
                         Comment_Description = c.String(maxLength: 500, fixedLength: true),
@@ -58,7 +58,7 @@ namespace PMS02.Migrations
                 "dbo.User",
                 c => new
                     {
-                        userID = c.Int(nullable: false),
+                        userID = c.Int(nullable: false, identity: true),
                         User_Name = c.String(nullable: false, maxLength: 200, fixedLength: true),
                         password = c.String(nullable: false, maxLength: 200, fixedLength: true),
                         Email = c.String(nullable: false, maxLength: 200, fixedLength: true),
@@ -76,7 +76,7 @@ namespace PMS02.Migrations
                 "dbo.Give_Evluation",
                 c => new
                     {
-                        ID = c.Int(nullable: false),
+                        ID = c.Int(nullable: false, identity: true),
                         Team_leader_ID = c.Int(),
                         Project_Manager_ID = c.Int(),
                         JD_ID = c.Int(),
@@ -94,7 +94,7 @@ namespace PMS02.Migrations
                 "dbo.Give_Feedback",
                 c => new
                     {
-                        ID = c.Int(nullable: false),
+                        ID = c.Int(nullable: false, identity: true),
                         Team_Leader_ID = c.Int(),
                         Project_Manager_ID = c.Int(),
                         Feedback = c.String(maxLength: 500, fixedLength: true),
@@ -109,7 +109,7 @@ namespace PMS02.Migrations
                 "dbo.Project",
                 c => new
                     {
-                        projectID = c.Int(nullable: false),
+                        projectID = c.Int(nullable: false, identity: true),
                         postID = c.Int(),
                         Project_Manager_ID = c.Int(),
                         status = c.String(nullable: false, maxLength: 200, fixedLength: true),
@@ -124,7 +124,7 @@ namespace PMS02.Migrations
                 "dbo.Sending_Request",
                 c => new
                     {
-                        ID = c.Int(nullable: false),
+                        ID = c.Int(nullable: false, identity: true),
                         Sender_ID = c.Int(),
                         Reciever_ID = c.Int(),
                         Project_ID = c.Int(),
@@ -142,7 +142,7 @@ namespace PMS02.Migrations
                 "dbo.Responding_Post",
                 c => new
                     {
-                        ID = c.Int(nullable: false),
+                        ID = c.Int(nullable: false, identity: true),
                         Post_ID = c.Int(),
                         Admin_ID = c.Int(),
                         post_stat = c.String(maxLength: 100, fixedLength: true),
@@ -153,25 +153,10 @@ namespace PMS02.Migrations
                 .Index(t => t.Post_ID)
                 .Index(t => t.Admin_ID);
             
-            DropTable("dbo.Customers");
         }
         
         public override void Down()
         {
-            CreateTable(
-                "dbo.Customers",
-                c => new
-                    {
-                        customerID = c.Int(nullable: false, identity: true),
-                        job_description = c.String(nullable: false),
-                        image = c.String(nullable: false),
-                        first_name = c.String(nullable: false),
-                        last_name = c.String(nullable: false),
-                        email = c.String(nullable: false),
-                        mobile = c.String(nullable: false),
-                    })
-                .PrimaryKey(t => t.customerID);
-            
             DropForeignKey("dbo.Responding_Post", "Post_ID", "dbo.Post");
             DropForeignKey("dbo.Comment", "Post_ID", "dbo.Post");
             DropForeignKey("dbo.Sending_Request", "Reciever_ID", "dbo.User");

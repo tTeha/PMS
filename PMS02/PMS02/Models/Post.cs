@@ -18,7 +18,8 @@ namespace PMS02.Models
             Responding_Post = new HashSet<Responding_Post>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
+        [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
         public int postID { get; set; }
 
         [Required]

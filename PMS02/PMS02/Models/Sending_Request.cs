@@ -8,7 +8,8 @@ namespace PMS02.Models
 
     public partial class Sending_Request
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
+        [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         public int? Sender_ID { get; set; }

@@ -15,7 +15,8 @@ namespace PMS02.Models
             Sending_Request = new HashSet<Sending_Request>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
+        [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
         public int projectID { get; set; }
 
         public int? postID { get; set; }
