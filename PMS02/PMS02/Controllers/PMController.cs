@@ -38,6 +38,7 @@ namespace PMS02.Controllers
             return RedirectToAction("Index", "PM");
         }
 
+        [HttpGet]
         public ActionResult SetStatus(int? id)
         {
             if (id == null)
@@ -50,8 +51,8 @@ namespace PMS02.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.postID = new SelectList(db.Post, "postID", "post_desc", project.postID);
-            ViewBag.Project_Manager_ID = new SelectList(db.User, "usrID", "User_Name", project.Project_Manager_ID);
+            ViewBag.postID = new SelectList(db.Post, "postID", "post_header", project.postID);
+            ViewBag.Project_Manager_ID = new SelectList(db.User, "userID", "User_Name", project.Project_Manager_ID);
             return View(project);
         }
 
@@ -66,10 +67,11 @@ namespace PMS02.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.postID = new SelectList(db.Post, "postID", "post_desc", project.postID);
-            ViewBag.Project_Manager_ID = new SelectList(db.User, "usrID", "User_Name", project.Project_Manager_ID);
+            ViewBag.postID = new SelectList(db.Post, "ID", "post_header", project.postID);
+            ViewBag.Project_Manager_ID = new SelectList(db.User, "userID", "User_Name", project.Project_Manager_ID);
             return View(project);
         }
+
 
         [HttpGet]
         public ActionResult Comment()
@@ -87,6 +89,40 @@ namespace PMS02.Controllers
                 db.Comment.Add(comment);
                 db.SaveChanges();
             }
+
+            return RedirectToAction("Index", "PM");
+        }
+
+        [HttpPost]
+        public ActionResult SendingRequestToCustomer(int userid, int projectid, Sending_Request request)
+        {
+            request.Sender_ID = (int)Session["id"];
+            request.Reciever_ID = userid;
+            request.Project_ID = projectid;
+            db.Sending_Request.Add(request);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult SendRequest(int senderid, int prjectId, Sending_Request send)
+        {
+
+            var v = Request["mail"];
+            var mail = Session["Email"];
+            if (v != (string)mail)
+            {
+                var f = db.User.Where(e => e.Email == v).FirstOrDefault(); 
+                send.Sender_ID = senderid;
+                send.Project_ID = prjectId;
+                send.Reciever_ID = f.userID;
+                send.respone = "no";
+                db.Sending_Request.Add(send);
+                db.SaveChanges();
+                
+            }
+
 
             return RedirectToAction("Index", "PM");
 

@@ -1,16 +1,23 @@
 ﻿@model IEnumerable<object>
 @{
+    Session["First"] = "first_name";
+    Session["Last"] = "last_name";
+    Session["Mobile"] = "01141336724";
+    Session["jop"] = "PM";
+    Session["Role"] = "PM";
+    Session["id"] = 2;
+
     ViewBag.Title = "Index";
     List<PMS02.Models.Project> listposts = Model.ToList()[0] as List<PMS02.Models.Project>;
     List<PMS02.Models.User> listuser = Model.ToList()[1] as List<PMS02.Models.User>;
     byte[] photo = (byte[])Session["photo"];
     var img = "";
-    var first = "TEha";
-    var last = "Abdo";
-    var mobile = "01141336724";
-    var jop = "jop";
-    var role = "PM";
-    var id = 1;
+    var first = Session["First"];
+    var last = Session["Last"];
+    var mobile = Session["Mobile"];
+    var jop = Session["jop"];
+    var role = Session["Role"];
+    var id = Session["id"];
 }
 
 @if (true)
@@ -105,7 +112,7 @@
                                     @foreach (var item in listposts)
                                     {
 
-                                        if (item.Project_Manager_ID == 2)
+                                        if (item.Project_Manager_ID == (int)Session["id"])
                                         {
 
 
@@ -114,7 +121,7 @@
                                                     @Html.DisplayFor(modelItem => item.status)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.Post.post_desc)
+                                                    @Html.DisplayFor(modelItem => item.Post.post_header)
                                                 </td>
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.Post.User.User_Name)
@@ -171,7 +178,7 @@
                                                 <td>
                                                     @if (item.status.Trim() != "Delivered")
                                                     {
-                                                        using (Html.BeginForm("SendRequest", "PM", new { senderid = id, postid = @item.postID }, FormMethod.Post))
+                                                        using (Html.BeginForm("SendRequest", "PM", new { senderid = id, prjectId = @item.projectID }, FormMethod.Post))
                                                         {
                                                             Html.AntiForgeryToken();
 
