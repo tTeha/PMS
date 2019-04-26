@@ -15,6 +15,7 @@ namespace PMS02.Controllers
         //[Authorize(Roles = "TL")]
         public ActionResult Index()
         {
+            Session["id"] = 3;
             List<object> TL = new List<object>();
             var id = (int)Session["id"];
 

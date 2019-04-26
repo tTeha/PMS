@@ -151,3 +151,4 @@ C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.dll
 C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.pdb
 C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.InitialMigration.resources
 C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.csproj.GenerateResource.Cache
+C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.AddNewTable.resources

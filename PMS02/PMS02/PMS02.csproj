@@ -226,6 +226,10 @@
     <Compile Include="Migrations\201904260359508_InitialMigration.Designer.cs">
       <DependentUpon>201904260359508_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904262132150_AddNewTable.cs" />
+    <Compile Include="Migrations\201904262132150_AddNewTable.Designer.cs">
+      <DependentUpon>201904262132150_AddNewTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Asign_Project.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -261,6 +265,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904260359508_InitialMigration.resx">
       <DependentUpon>201904260359508_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904262132150_AddNewTable.resx">
+      <DependentUpon>201904262132150_AddNewTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

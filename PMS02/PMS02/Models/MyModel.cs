@@ -20,9 +20,8 @@ namespace PMS02.Models
         public virtual DbSet<Project> Project { get; set; }
         public virtual DbSet<Responding_Post> Responding_Post { get; set; }
         public virtual DbSet<Sending_Request> Sending_Request { get; set; }
-        public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Responding_Request> Responding_Request { get; set; }
-
+        public virtual DbSet<User> User { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Comment>()
@@ -60,11 +59,6 @@ namespace PMS02.Models
                 .WithOptional(e => e.Post)
                 .HasForeignKey(e => e.Post_ID);
 
-            modelBuilder.Entity<Sending_Request>()
-                .HasMany(e => e.Responding_Request)
-                .WithOptional(e => e.Sending_Request)
-                .HasForeignKey(e => e.Request_ID);
-
             modelBuilder.Entity<Project>()
                 .Property(e => e.status)
                 .IsFixedLength();
@@ -81,6 +75,11 @@ namespace PMS02.Models
             modelBuilder.Entity<Sending_Request>()
                 .Property(e => e.respone)
                 .IsFixedLength();
+
+            modelBuilder.Entity<Sending_Request>()
+                .HasMany(e => e.Responding_Request)
+                .WithOptional(e => e.Sending_Request)
+                .HasForeignKey(e => e.Request_ID);
 
             modelBuilder.Entity<User>()
                 .Property(e => e.User_Name)
