@@ -196,6 +196,8 @@
     <Content Include="Views\PM\Index.cshtml" />
     <Content Include="Views\PM\SetStatus.cshtml" />
     <Content Include="Views\PM\Comment.cshtml" />
+    <Content Include="Views\TL\Index.cshtml" />
+    <Content Include="Views\JD\Index.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -217,6 +219,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\JDController.cs" />
     <Compile Include="Controllers\PMController.cs" />
     <Compile Include="Controllers\TLController.cs" />
     <Compile Include="Global.asax.cs">
@@ -260,7 +263,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\TL\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904260359508_InitialMigration.resx">

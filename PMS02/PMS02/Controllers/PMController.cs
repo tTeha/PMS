@@ -26,9 +26,9 @@ namespace PMS02.Controllers
         }
         
         [HttpPost]
-        public ActionResult Leave(int postid)
+        public ActionResult Leave(int projectId)
         {
-            Project project = db.Project.Find(postid);
+            Project project = db.Project.Find(projectId);
             if (project == null)
             {
                 return HttpNotFound();

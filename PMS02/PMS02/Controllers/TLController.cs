@@ -22,26 +22,52 @@ namespace PMS02.Controllers
             //  var req = from r in db.Sending_Requests where r.Reciever_ID == id select r;
             var result = from y in db.Sending_Request
                          where !(
-                                     from x in db.Responding_Request
-
-                                     select x.Request_ID
-                                 ).Contains(y.ID)
+                                from x in db.Responding_Request
+                                select x.Request_ID
+                                ).Contains(y.ID)
+                               && y.Reciever_ID == id
                          select y;
-
             TL.Add(result.ToList());
-            var project = from c in db.Project where (
 
-                from y in db.Sending_Request
-                where (
-                      from x in db.Responding_Request
-
-                      select x.Request_ID
-                  ).Contains(y.ID)
-                select y.Project_ID).Contains(c.projectID)
-                                          select c;
+            var project = from c in db.Project
+                          where (
+                                from y in db.Sending_Request
+                                where (
+                                      from x in db.Responding_Request
+                                      where x.User_ID == id
+                                      select x.Request_ID
+                                      ).Contains(y.ID)
+                                select y.Project_ID
+                                ).Contains(c.projectID)
+                          select c;
 
             TL.Add(project.ToList());
             return View(TL);
+        }
+
+        [HttpPost]
+        public ActionResult AcceptORreject(int requestid, int userid, bool stat, Responding_Request respond)
+        {
+            respond.Request_ID = requestid;
+            respond.User_ID = userid;
+            respond.Respond = stat;
+            db.Responding_Request.Add(respond);
+            db.SaveChanges();
+
+
+            return RedirectToAction("Index", "TL");
+        }
+
+
+
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

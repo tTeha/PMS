@@ -131,7 +131,7 @@
                                                 <td>
                                                     @if (item.status.Trim() != "Delivered")
                                                     {
-                                                        using (Html.BeginForm("Leave", "PM", new { postid = @item.postID }, FormMethod.Post))
+                                                        using (Html.BeginForm("Leave", "PM", new { projectId = @item.projectID }, FormMethod.Post))
                                                         {
                                                             Html.AntiForgeryToken();
 
