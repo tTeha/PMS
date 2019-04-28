@@ -1,0 +1,186 @@
+﻿@model IEnumerable<object>
+@{
+    ViewBag.Title = "Projects Management";
+    List<PMS02.Models.Post> list = Model.ToList()[0] as List<PMS02.Models.Post>;
+    List<PMS02.Models.Sending_Request> requestlist = Model.ToList()[1] as List<PMS02.Models.Sending_Request>;
+    //byte[] photo = (byte[])Session["photo"];
+    // var base64 = Convert.ToBase64String(photo);
+    //var img = string.Format("data:image/jpg;base64,{0}", base64);
+    var first = "fname";
+    var last = "lname";
+    var mobile = 5555;
+    var jop = "7aramy";
+    var role = "ay 7aga";
+    var id = 1;
+}
+@if (true)
+{
+    using (Html.BeginForm("Logout", "Home", FormMethod.Post, new { id = "logoutform" }))
+    {
+        <nav class="navbar navbar-inverse ">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Manageitforyou.com</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
+                    </ul>
+                    @if ((string)role == "Admin")
+                    {
+                        <a href="@Url.Action("Index", "Admin")" class="btn btn-primary"> My profile<span class="glyphicon glyphicon-user"></span></a>
+
+                    }
+                    else if ((string)role == "Customer")
+                    {
+                        <a href="@Url.Action("Index", "Customer")" class="btn btn-primary"> My profile<span class="glyphicon glyphicon-user"></span></a>
+
+                    }
+                    else if ((string)role == "PM")
+                    {
+                        <a href="@Url.Action("Index", "PM")" class="btn btn-primary"> My profile<span class="glyphicon glyphicon-user"></span></a>
+
+                    }
+                    else if ((string)role == "TL")
+                    {
+                        <a href="@Url.Action("Index", "TL")" class="btn btn-primary"> My profile<span class="glyphicon glyphicon-user"></span></a>
+
+                    }
+                    else if ((string)role == "JE")
+                    {
+                        <a href="@Url.Action("Index", "JE")" class="btn btn-primary"> My profile<span class="glyphicon glyphicon-user"></span></a>
+
+                    }
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <li><p class="navbar-text ">@HttpContext.Current.User.Identity.Name</p></li>
+                        <li><a href="javascript:document.getElementById('logoutform').submit()"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    }
+}
+<div class="container">
+    <div class="jumbotron">
+        <h1>Experts at making your work easy</h1>
+        <p>manage,simplfy and meke it simpler for you   <span class="glyphicon glyphicon-ok btn-success"></span> </p>
+        <p>just write your project description and get started   <span class="glyphicon glyphicon-ok btn-success"></span> </p>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 col-md-6 well text-center">
+            <h4 class="text-center text-success">Post A New Project Now ! </h4>
+            <a href="@Url.Action("PostNewProject", "Home")" class="btn btn-success btn-lg">Post<span class="glyphicon glyphicon-pencil"></span></a>
+        </div>
+        <div class="col-lg-8 col-md-6">
+            <div class="mainContent">
+                <div class="panel panel-info" style="max-height:500px ;min-height:500px;overflow-y:scroll">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">All Current Not Assigned Projects That Was <strong>Approved</strong> by system Admin</h3>
+                    </div>
+                    <div class="panel-body table-responsive">
+                        <table class="table table-condensed table-bordered table-hover">
+                            <tr class="danger text-capitalize">
+
+                                <th>
+                                    Posts Description
+                                </th>
+                                <th>
+                                    Posted By
+                                </th>
+                                @if ((string)role == "PM")
+                                {
+                                    <th>
+                                        Select
+                                    </th>
+                                    <th>
+                                        Report This User
+                                    </th>
+
+                                }
+
+                                else if ((string)role == "Customer")
+                                {
+                                    <th>
+                                        Update
+                                    </th>
+                                    <th>
+                                        Remove
+
+                                    </th>
+                                }
+                            </tr>
+                            @foreach (var item in list)
+                            {
+                                <tr class="success ">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.post_desc)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.User.User_Name)
+                                    </td>
+
+                                    @if ((string)role == "PM")
+                                    {
+
+
+                                        <td>
+                                            @using (Html.BeginForm("SendingRequestToCustomer", "PM", new { userid = @item.userID, projectid = @item.postID }, FormMethod.Post))
+                                            {
+                                                Html.AntiForgeryToken();
+
+
+                                                <button type="submit" value="SendingRequestToCustomer" class="btn btn-primary btn btn-sm"><span class="glyphicon glyphicon-plus-sign"></span> Sending Reqeust</button>
+
+                                            }
+                                        </td>
+
+
+
+
+                                    }
+                                    else if ((string)role == "Customer" && item.userID == (int)id)
+                                    {
+                                        <td>
+                                            <a href="@Url.Action("Edit", "Customer",new { id = @item.userID })" class="btn btn-primary"> Edit <span class="glyphicon glyphicon-edit"></span></a>
+                                        </td>
+
+                                        <td>
+                                            @using (Html.BeginForm("Deleteposts", "Customer", new { postid = @item.userID }, FormMethod.Post))
+                                            {
+                                                Html.AntiForgeryToken();
+
+
+                                                <button type="submit" value="Deleteposts" class="btn btn-danger btn btn-sm"><span class="glyphicon glyphicon-remove"></span>Delete</button>
+                                            }
+                                        </td>
+
+                                    }
+
+                                </tr>
+                            }
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/pop_ups.js"></script>
+}

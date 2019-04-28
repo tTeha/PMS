@@ -15,4 +15,18 @@ select,
 textarea {
     max-width: 280px;
 }
+ .modal-content {
+            width: 600px;
+            margin-left: -10px;
+        }
 
+        .modal-header, h4, .close {
+            background-color: #5cb85c;
+            color: white !important;
+            text-align: center;
+            font-size: 30px;
+        }
+
+        .modal-footer {
+            background-color: #f9f9f9;
+        }
