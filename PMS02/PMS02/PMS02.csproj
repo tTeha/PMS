@@ -198,6 +198,11 @@
     <Content Include="Views\PM\Comment.cshtml" />
     <Content Include="Views\TL\Index.cshtml" />
     <Content Include="Views\JD\Index.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\Edit.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\Create.cshtml" />
+    <Content Include="Views\Admin\Delete.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -219,9 +224,12 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\JDController.cs" />
     <Compile Include="Controllers\PMController.cs" />
     <Compile Include="Controllers\TLController.cs" />
+    <Compile Include="crypto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -232,6 +240,10 @@
     <Compile Include="Migrations\201904262132150_AddNewTable.cs" />
     <Compile Include="Migrations\201904262132150_AddNewTable.Designer.cs">
       <DependentUpon>201904262132150_AddNewTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904272336384_new migartions.cs" />
+    <Compile Include="Migrations\201904272336384_new migartions.Designer.cs">
+      <DependentUpon>201904272336384_new migartions.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Asign_Project.cs" />
@@ -270,6 +282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904262132150_AddNewTable.resx">
       <DependentUpon>201904262132150_AddNewTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904272336384_new migartions.resx">
+      <DependentUpon>201904272336384_new migartions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

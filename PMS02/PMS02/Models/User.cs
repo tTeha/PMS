@@ -40,6 +40,8 @@ namespace PMS02.Models
         [StringLength(200)]
         public string password { get; set; }
 
+      
+
         [Required]
         [StringLength(200)]
         public string Email { get; set; }
