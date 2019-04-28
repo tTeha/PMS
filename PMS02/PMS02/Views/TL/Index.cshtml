@@ -208,6 +208,25 @@
                                                 @Html.DisplayFor(modelItem => item.Post.post_header)
                                             </td>
 
+                                            <td>
+                                                @if (item.status.Trim() != "Delivered")
+                                                {
+                                                    using (Html.BeginForm("Leave", "TL", new { projectId = @item.projectID }, FormMethod.Post))
+                                                    {
+                                                        Html.AntiForgeryToken();
+
+                                                        <button type="submit" value="Leave" class="btn btn-success btn btn-sm"><span class="glyphicon glyphicon-remove"></span>Leave</button>
+
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <p>Disabled</p>
+                                                }
+
+
+                                            </td>
+
 
 
                                             <td>

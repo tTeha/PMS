@@ -60,6 +60,18 @@ namespace PMS02.Controllers
 
 
 
+        [HttpPost]
+        public ActionResult Leave(int projectId)
+        {
+            Project project = db.Project.Find(projectId);
+            if (project == null)
+            {
+                return HttpNotFound();
+            }
+            db.Project.Remove(project);
+            db.SaveChanges();
+            return RedirectToAction("Index", "PM");
+        }
 
         protected override void Dispose(bool disposing)
         {
