@@ -10,7 +10,8 @@
     ViewBag.Title = "Team Leader";
     List<PMS02.Models.Sending_Request> req = Model.ToList()[0] as List<PMS02.Models.Sending_Request>;
     List<PMS02.Models.Project> pro = Model.ToList()[1] as List<PMS02.Models.Project>;
-    
+    List<PMS02.Models.User> listuser = Model.ToList()[2] as List<PMS02.Models.User>;
+
     var img = "";
     var first = Session["First"];
     var last = Session["Last"];
@@ -192,7 +193,7 @@
                                             Leave
                                         </th>
                                         <th>
-                                            Send TO Je
+                                            Send TO JD
                                         </th>
 
                                     </tr>
@@ -230,18 +231,14 @@
 
                                             </td>
 
-
-
                                             <td>
                                                 @if (item.status.Trim() != "Delivered")
                                                 {
-                                                    using (Html.BeginForm("SendRequest", "PM", new { senderid = id, postid = @item.projectID }, FormMethod.Post))
+                                                    using (Html.BeginForm("SendRequest", "TL", new { senderid = id, prjectId = @item.projectID }, FormMethod.Post))
                                                     {
                                                         Html.AntiForgeryToken();
-
-
                                                         <input id="Text1" type="email" required name="mail" />
-                                                        <button type="submit" value="SendRequest" class="btn btn-primary btn btn-sm"><span class="glyphicon glyphicon-send"></span>Send</button>
+                                                            <button type="submit" value="SendRequest" class="btn btn-primary btn btn-sm"><span class="glyphicon glyphicon-send"></span>Send</button>
                                                     }
                                                 }
                                                 else
@@ -249,9 +246,10 @@
                                                     <p>Disabled</p>
                                                 }
 
-
-
                                             </td>
+
+
+
 
 
                                         </tr>
@@ -269,7 +267,57 @@
                     </div>
                 </div>
 
+                <div class="row">
 
+                    <div class="col-sm-12">
+                        <div class="panel panel-success" style="max-height:500px ;min-height:500px;overflow-y:scroll">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">All Junior Developers</h3>
+                            </div>
+                            <div class="panel-body table-responsive">
+                                <table class="table table-condensed table-bordered table-hover">
+
+                                    <tr class="danger">
+
+                                        <th>
+                                            Actor Name
+                                        </th>
+
+                                        <th>
+                                            Actor Email
+                                        </th>
+
+                                        <th>
+                                            Actor Job
+                                        </th>
+
+
+                                    </tr>
+
+                                    @foreach (var user in listuser)
+                                    {
+                                        <tr class="success">
+
+                                            <td>
+                                                @Html.DisplayFor(model => user.User_Name)
+                                            </td>
+
+                                            <td>
+                                                @Html.DisplayFor(model => user.Email)
+                                            </td>
+
+                                            <td>
+                                                @Html.DisplayFor(model => user.Job_Description)
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>

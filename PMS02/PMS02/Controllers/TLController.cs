@@ -33,8 +33,18 @@ namespace PMS02.Controllers
                                 select y.Project_ID
                                 ).Contains(c.projectID)
                           select c;
-
             TL.Add(project.ToList());
+
+            var members = from w in db.User
+                         where
+                            !(from y in db.Sending_Request
+                              where y.Respond == true
+                              select y.Reciever_ID
+                             ).Contains(w.userID)
+                             && w.Type == "4"
+                         select w;
+            TL.Add(members.ToList());
+
             return View(TL);
         }
 
@@ -76,14 +86,25 @@ namespace PMS02.Controllers
             return RedirectToAction("Index", "TL");
         }
 
-
-        protected override void Dispose(bool disposing)
+        [HttpPost]
+        public ActionResult SendRequest(int senderid, int prjectId, Sending_Request send)
         {
-            if (disposing)
+
+            var v = Request["mail"];
+            var mail = Session["Email"];
+            if (v != (string)mail)
             {
-                db.Dispose();
+                var f = db.User.Where(e => e.Email == v).FirstOrDefault();
+                send.Sender_ID = senderid;
+                send.Project_ID = prjectId;
+                send.Reciever_ID = f.userID;
+                send.Respond = false;
+                db.Sending_Request.Add(send);
+                db.SaveChanges();
             }
-            base.Dispose(disposing);
+            return RedirectToAction("Index", "TL");
         }
+        
+        
     }
 }
