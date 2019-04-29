@@ -17,7 +17,41 @@
                 <li><a href="#">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                
+
+                @if (Session["id"] != null)
+                {
+                    if ((string)Session["type"] == "1")
+                    {
+                        <li><a href="@Url.Action("Index", "Customer")" class="btn btn-primary">My profile<span class="glyphicon glyphicon-user"></span></a></li>
+                    }
+                    else if ((string)Session["type"] == "2")
+                    {
+                        <li><a href="@Url.Action("Index", "PM")" class="btn btn-primary">My profile<span class="glyphicon glyphicon-user"></span></a></li>
+                    }
+                    else if ((string)Session["type"] == "3")
+                    {
+                        <li><a href="@Url.Action("Index", "TL")" class="btn btn-primary">My profile<span class="glyphicon glyphicon-user"></span></a></li>
+                    }
+                    else if ((string)Session["type"] == "4")
+                    {
+                        <li><a href="@Url.Action("Index", "JD")" class="btn btn-primary">My profile<span class="glyphicon glyphicon-user"></span></a></li>
+                    }
+                    else if ((string)Session["type"] == "5")
+                    {
+                        <li><a href="@Url.Action("Index", "Admin")" class="btn btn-primary">My profile<span class="glyphicon glyphicon-user"></span></a></li>
+                    }
+
+                    
+                    <li><a href="@Url.Action("Index", "Admin")"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                    
+                }
+                else
+                {
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> SignUp</a></li>
+                }
+                
             </ul>
         </div>
     </div>
