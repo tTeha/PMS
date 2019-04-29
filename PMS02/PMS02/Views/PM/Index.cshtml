@@ -7,7 +7,7 @@
     Session["Role"] = "PM";
     Session["id"] = 2;
 
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Project Manager";
     List<PMS02.Models.Project> listposts = Model.ToList()[0] as List<PMS02.Models.Project>;
     List<PMS02.Models.User> listuser = Model.ToList()[1] as List<PMS02.Models.User>;
     byte[] photo = (byte[])Session["photo"];
@@ -107,6 +107,7 @@
                                         <th>Change Status</th>
                                         <th>Comment</th>
                                         <th>Send Request</th>
+                                        <th>Members</th>
                                     </tr>
 
                                     @foreach (var item in listposts)
@@ -170,10 +171,7 @@
                                                         <p>Disabled</p>
                                                     }
 
-
-
                                                 </td>
-
 
                                                 <td>
                                                     @if (item.status.Trim() != "Delivered")
@@ -192,7 +190,17 @@
                                                         <p>Disabled</p>
                                                     }
 
+                                                </td>
+                                                <td>
+                                                    @if (item.status.Trim() != "Delivered")
+                                                    {
+                                                        <a href="@Url.Action("getMember", "PM",new { projectId = item.projectID })" class="btn btn-primary">TL/JD</a>
 
+                                                    }
+                                                    else
+                                                    {
+                                                        <p>Disabled</p>
+                                                    }
 
                                                 </td>
 

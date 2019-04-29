@@ -68,13 +68,16 @@ namespace PMS02.Models
                 .WithOptional(e => e.Project)
                 .HasForeignKey(e => e.Project_ID);
 
+            modelBuilder.Entity<Project>()
+                .HasMany(e => e.Responding_Request)
+                .WithOptional(e => e.Project)
+                .HasForeignKey(e => e.Project_ID);
+
+
             modelBuilder.Entity<Responding_Post>()
                 .Property(e => e.post_stat)
                 .IsFixedLength();
-
-            modelBuilder.Entity<Sending_Request>()
-                .Property(e => e.respone)
-                .IsFixedLength();
+            
 
             modelBuilder.Entity<Sending_Request>()
                 .HasMany(e => e.Responding_Request)

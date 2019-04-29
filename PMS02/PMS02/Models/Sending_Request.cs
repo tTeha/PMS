@@ -23,9 +23,8 @@ namespace PMS02.Models
         public int? Reciever_ID { get; set; }
 
         public int? Project_ID { get; set; }
-
-        [StringLength(200)]
-        public string respone { get; set; }
+        
+        public bool? Respond { get; set; }
 
         public virtual Project Project { get; set; }
 
@@ -35,5 +34,10 @@ namespace PMS02.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Responding_Request> Responding_Request { get; set; }
+
+        internal object Property(Func<object, object> p)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

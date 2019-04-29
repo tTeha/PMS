@@ -117,16 +117,56 @@ namespace PMS02.Controllers
                 send.Sender_ID = senderid;
                 send.Project_ID = prjectId;
                 send.Reciever_ID = f.userID;
-                send.respone = "no";
+                send.Respond = false;
                 db.Sending_Request.Add(send);
                 db.SaveChanges();
                 
             }
-
-
+            
             return RedirectToAction("Index", "PM");
 
         }
-        
+
+        public ActionResult getMember(int projectId)
+        {
+            
+            List<object> member = new List<object>();
+            var result = from w in db.User
+                         where
+                            (from y in db.Sending_Request
+                             where y.Respond == true
+                                   && y.Project_ID == projectId
+                             select y.Reciever_ID
+                             ).Contains(w.userID)
+                         select w;
+
+            member.Add(result.ToList());
+            return View(member);
+        }
+
+        [HttpPost]
+        public ActionResult removeMember(int? userId, int? projectId)
+        {
+            if (userId == null && projectId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (projectId == null && userId == null)
+            {
+                return RedirectToAction("getMember", "PM");
+            }
+            var respond_id = from c in db.Sending_Request
+                             where
+                                c.Project_ID == projectId
+                                && c.Reciever_ID == userId
+                             select c.ID;
+            respond_id.ToList();
+            Sending_Request response = db.Sending_Request.Find(respond_id.First());
+           
+            db.Sending_Request.Remove(response);
+            db.SaveChanges();
+            return RedirectToAction("Index", "PM");
+        }
+
     }
 }

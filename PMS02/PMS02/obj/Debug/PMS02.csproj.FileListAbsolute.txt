@@ -153,3 +153,6 @@ C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.Initia
 C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.csproj.GenerateResource.Cache
 C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.AddNewTable.resources
 C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.newmigartions.resources
+C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.AddProjectFKtoRespondingRequestTable.resources
+C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.EditRespondinSendingRequestTable.resources
+C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.m.resources

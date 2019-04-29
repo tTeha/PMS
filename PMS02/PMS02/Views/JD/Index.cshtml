@@ -6,7 +6,7 @@
     Session["jop"] = "JD";
     Session["Role"] = "JD";
     Session["id"] = 5;
-    ViewBag.Title = "My Profile";
+    ViewBag.Title = "Junior Develiper";
     List<PMS02.Models.Sending_Request> req = Model.ToList()[0] as List<PMS02.Models.Sending_Request>;
     List<PMS02.Models.Project> pro = Model.ToList()[1] as List<PMS02.Models.Project>;
 
@@ -128,7 +128,7 @@
 
 
                                             <td>
-                                                @using (Html.BeginForm("AcceptORreject", "JD", new { requestid = @item.ID, userid = id, stat = true }, FormMethod.Post))
+                                                @using (Html.BeginForm("AcceptORreject", "JD", new { requestid = @item.ID, stat = true }, FormMethod.Post))
                                                 {
                                                     Html.AntiForgeryToken();
 
@@ -140,7 +140,7 @@
 
 
                                             <td>
-                                                @using (Html.BeginForm("AcceptORreject", "JD", new { requestid = @item.ID, userid = id, stat = false }, FormMethod.Post))
+                                                @using (Html.BeginForm("AcceptORreject", "JD", new { requestid = @item.ID, stat = false }, FormMethod.Post))
                                                 {
                                                     Html.AntiForgeryToken();
 
@@ -186,6 +186,9 @@
                                         <th>
                                             Details
                                         </th>
+                                        <th>
+                                            Leave
+                                        </th>
 
                                     </tr>
 
@@ -204,7 +207,24 @@
                                             </td>
 
 
+                                            <td>
+                                                @if (item.status.Trim() != "Delivered")
+                                                {
+                                                    using (Html.BeginForm("Leave", "JD", new { projectId = @item.projectID, userId = id }, FormMethod.Post))
+                                                    {
+                                                        Html.AntiForgeryToken();
 
+                                                        <button type="submit" value="Leave" class="btn btn-success btn btn-sm"><span class="glyphicon glyphicon-remove"></span>Leave</button>
+
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <p>Disabled</p>
+                                                }
+
+
+                                            </td>
 
 
 

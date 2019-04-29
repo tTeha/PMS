@@ -19,12 +19,8 @@ namespace PMS02.Controllers
             List<object> TL = new List<object>();
             var id = (int)Session["id"];
 
-            //  var req = from r in db.Sending_Requests where r.Reciever_ID == id select r;
             var result = from y in db.Sending_Request
-                         where !(
-                                from x in db.Responding_Request
-                                select x.Request_ID
-                                ).Contains(y.ID)
+                         where y.Respond == false
                                && y.Reciever_ID == id
                          select y;
             TL.Add(result.ToList());
@@ -32,11 +28,8 @@ namespace PMS02.Controllers
             var project = from c in db.Project
                           where (
                                 from y in db.Sending_Request
-                                where (
-                                      from x in db.Responding_Request
-                                      where x.User_ID == id
-                                      select x.Request_ID
-                                      ).Contains(y.ID)
+                                where y.Respond == true
+                                && y.Reciever_ID == id
                                 select y.Project_ID
                                 ).Contains(c.projectID)
                           select c;
@@ -46,19 +39,42 @@ namespace PMS02.Controllers
         }
 
         [HttpPost]
-        public ActionResult AcceptORreject(int requestid, int userid, bool stat, Responding_Request respond)
+        public ActionResult AcceptORreject(int requestid, bool stat, Sending_Request respond)
         {
-            respond.Request_ID = requestid;
-            respond.User_ID = userid;
+           respond = db.Sending_Request.Find(requestid);
+            if (respond == null)
+            {
+                return HttpNotFound();
+            }
             respond.Respond = stat;
-            db.Responding_Request.Add(respond);
             db.SaveChanges();
-
 
             return RedirectToAction("Index", "TL");
         }
 
+        [HttpPost]
+        public ActionResult Leave(int projectId, int userId)
+        {
+            var respond_id = from c in db.Sending_Request
+                             where
+                                c.Project_ID == projectId
+                                && c.Reciever_ID == userId
+                             select c.ID;
+            respond_id.ToList();
+            foreach (var item in respond_id)
+            {
+                Sending_Request response = db.Sending_Request.Find(respond_id.First());
+                if (response == null)
+                {
+                    return HttpNotFound();
+                }
+                db.Sending_Request.Remove(response);
+                
+            }
+            db.SaveChanges();
 
+            return RedirectToAction("Index", "TL");
+        }
 
 
         protected override void Dispose(bool disposing)
