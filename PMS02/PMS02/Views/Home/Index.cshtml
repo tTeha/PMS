@@ -2,8 +2,8 @@
 @{
     ViewBag.Title = "Projects Management";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    List<PMS02.Models.Post> list = Model.ToList()[0] as List<PMS02.Models.Post>;
-    List<PMS02.Models.Sending_Request> requestlist = Model.ToList()[1] as List<PMS02.Models.Sending_Request>;
+    //List<PMS02.Models.Post> list = Model.ToList()[0] as List<PMS02.Models.Post>;
+    List<PMS02.Models.Sending_Request> requestlist = Model.ToList()[0] as List<PMS02.Models.Sending_Request>;
     //byte[] photo = (byte[])Session["photo"];
     // var base64 = Convert.ToBase64String(photo);
     //var img = string.Format("data:image/jpg;base64,{0}", base64);
@@ -66,55 +66,6 @@
                                     </th>
                                 }
                             </tr>
-                            @foreach (var item in list)
-                            {
-                                <tr class="success ">
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.post_desc)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.User.User_Name)
-                                    </td>
-
-                                    @if ((string)role == "PM")
-                                    {
-
-
-                                        <td>
-                                            @using (Html.BeginForm("SendingRequestToCustomer", "PM", new { userid = @item.userID, projectid = @item.postID }, FormMethod.Post))
-                                            {
-                                                Html.AntiForgeryToken();
-
-
-                                                <button type="submit" value="SendingRequestToCustomer" class="btn btn-primary btn btn-sm"><span class="glyphicon glyphicon-plus-sign"></span> Sending Reqeust</button>
-
-                                            }
-                                        </td>
-
-
-
-
-                                    }
-                                    else if ((string)role == "Customer" && item.userID == (int)id)
-                                    {
-                                        <td>
-                                            <a href="@Url.Action("Edit", "Customer",new { id = @item.userID })" class="btn btn-primary"> Edit <span class="glyphicon glyphicon-edit"></span></a>
-                                        </td>
-
-                                        <td>
-                                            @using (Html.BeginForm("Deleteposts", "Customer", new { postid = @item.userID }, FormMethod.Post))
-                                            {
-                                                Html.AntiForgeryToken();
-
-
-                                                <button type="submit" value="Deleteposts" class="btn btn-danger btn btn-sm"><span class="glyphicon glyphicon-remove"></span>Delete</button>
-                                            }
-                                        </td>
-
-                                    }
-
-                                </tr>
-                            }
                         </table>
 
                     </div>

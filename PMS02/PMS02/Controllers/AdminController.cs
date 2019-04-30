@@ -70,7 +70,6 @@ namespace PMS02.Controllers
                 #region // Convert a photo to binary 
                 //byte[] data = new byte[user.Photo.ContentLength];
                 //user.Photo.InputStream.Read(data, 0, user.Photo.ContentLength);
-                user.Photo = "jkashdkjh";
                 #endregion
 
 

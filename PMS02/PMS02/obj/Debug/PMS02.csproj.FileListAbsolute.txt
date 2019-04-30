@@ -156,3 +156,9 @@ C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.newmig
 C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.AddProjectFKtoRespondingRequestTable.resources
 C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.EditRespondinSendingRequestTable.resources
 C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.m.resources
+C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.w.resources
+C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.z.resources
+C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.a.resources
+C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.b.resources
+C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.c.resources
+C:\Users\TEha\Documents\GitHub\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.d.resources

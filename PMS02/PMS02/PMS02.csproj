@@ -265,6 +265,30 @@
     <Compile Include="Migrations\201904290454068_m.Designer.cs">
       <DependentUpon>201904290454068_m.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904292127325_w.cs" />
+    <Compile Include="Migrations\201904292127325_w.Designer.cs">
+      <DependentUpon>201904292127325_w.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904292135578_z.cs" />
+    <Compile Include="Migrations\201904292135578_z.Designer.cs">
+      <DependentUpon>201904292135578_z.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904292150589_a.cs" />
+    <Compile Include="Migrations\201904292150589_a.Designer.cs">
+      <DependentUpon>201904292150589_a.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904292213361_b.cs" />
+    <Compile Include="Migrations\201904292213361_b.Designer.cs">
+      <DependentUpon>201904292213361_b.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904292254565_c.cs" />
+    <Compile Include="Migrations\201904292254565_c.Designer.cs">
+      <DependentUpon>201904292254565_c.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904300126570_d.cs" />
+    <Compile Include="Migrations\201904300126570_d.Designer.cs">
+      <DependentUpon>201904300126570_d.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Asign_Project.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -277,6 +301,7 @@
     <Compile Include="Models\Responding_Request.cs" />
     <Compile Include="Models\Sending_Request.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -295,6 +320,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904260359508_InitialMigration.resx">
@@ -314,6 +340,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904290454068_m.resx">
       <DependentUpon>201904290454068_m.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904292127325_w.resx">
+      <DependentUpon>201904292127325_w.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904292135578_z.resx">
+      <DependentUpon>201904292135578_z.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904292150589_a.resx">
+      <DependentUpon>201904292150589_a.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904292213361_b.resx">
+      <DependentUpon>201904292213361_b.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904292254565_c.resx">
+      <DependentUpon>201904292254565_c.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904300126570_d.resx">
+      <DependentUpon>201904300126570_d.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

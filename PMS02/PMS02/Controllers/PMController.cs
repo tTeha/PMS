@@ -18,10 +18,23 @@ namespace PMS02.Controllers
         public ActionResult Index()
         {
             List<object> listprojects = new List<object>();
+            var id = (int)Session["id"];
+
             MyModel db = new MyModel();
             listprojects.Add(db.Project.ToList());
-            var user = from u in db.User where u.Job_Description == "TL" || u.Job_Description == "JD" select u;
+
+            var user = from u in db.User where u.Job_Description.Trim() == "Team Leader" || u.Job_Description.Trim() == "Junior Developer" select u;
             listprojects.Add(user.ToList());
+
+            var freePosts = from y in db.Post
+                         where 
+                         !(
+                            from x in db.Asign_Project
+                            where x.Project_Manager_ID == id
+                            select x.post_ID
+                         ).Contains(y.postID)
+                         select y;
+            listprojects.Add(freePosts.ToList());
             return View(listprojects);
         }
         
@@ -120,9 +133,7 @@ namespace PMS02.Controllers
                 send.Respond = false;
                 db.Sending_Request.Add(send);
                 db.SaveChanges();
-                
             }
-            
             return RedirectToAction("Index", "PM");
 
         }
@@ -166,6 +177,30 @@ namespace PMS02.Controllers
             db.Sending_Request.Remove(response);
             db.SaveChanges();
             return RedirectToAction("Index", "PM");
+        }
+
+        [HttpPost]
+        public ActionResult ApplyPost(int senderid, int postId, Asign_Project send)
+        {
+
+            var v = Request["mail"];
+            var mail = Session["Email"];
+            if (v != (string)mail)
+            {
+                var f = db.User.Where(e => e.Email == v).FirstOrDefault();
+                if (f == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                send.Project_Manager_ID = senderid;
+                send.post_ID = postId;
+                send.UserID = f.userID;
+                send.Respond = false;
+                db.Asign_Project.Add(send);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index", "PM");
+
         }
 
     }

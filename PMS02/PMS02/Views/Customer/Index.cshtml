@@ -2,7 +2,7 @@
 @{
 
     List<PMS02.Models.Project> list = Model.ToList()[0] as List<PMS02.Models.Project>;
-    List<PMS02.Models.Sending_Request> req = Model.ToList()[1] as List<PMS02.Models.Sending_Request>;
+    List<PMS02.Models.Asign_Project> req = Model.ToList()[1] as List<PMS02.Models.Asign_Project>;
     List<PMS02.Models.Post> post = Model.ToList()[2] as List<PMS02.Models.Post>;
     List<PMS02.Models.User> user = Model.ToList()[3] as List<PMS02.Models.User>;
 
@@ -11,14 +11,14 @@
     //byte[] photo = (byte[])Session["photo"];
     //var base64 = Convert.ToBase64String(photo);
     //var img = string.Format("data:image/jpg;base64,{0}");
-    var first = "firstName";
-    var last = "last name";
-    var mobile = 545646542;
-    var jop = "ay 7aga";
-    var role = "CS";
-    var id = 1;
+    var first = Session["First"];
+    var last = Session["Last"];
+    var mobile = Session["Mobile"];
+    var job = Session["Job"];
+    var role = Session["Role"];
+    var id = Session["id"];
 }
-@if (true)
+@if ((string)Session["Role"] == "Customer")
 {
     
     <div class="container-fluid text-center">
@@ -39,7 +39,10 @@
                                             Project Status
                                         </th>
                                         <th>
-                                            post Description
+                                            Post Header
+                                        </th>
+                                        <th>
+                                            Post Description
                                         </th>
                                         <th>
                                             PM That works on
@@ -52,6 +55,9 @@
                                         <tr class="success">
                                             <td>
                                                 @Html.DisplayFor(modelitem => item.status)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Post.post_header)
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Post.post_desc)
@@ -97,20 +103,16 @@
                                                 @Html.DisplayFor(modelitem => item.User.User_Name)
                                             </td>
                                             <td>
-                                                @using (Html.BeginForm("AcceptRequest", "Customer", new { postid = @item.Project_ID, ManagerID = item.Sender_ID, requestid = @item.ID }, FormMethod.Post))
+                                                @using (Html.BeginForm("AcceptRequest", "Customer", new { postid = @item.post_ID, ManagerID = @item.Project_Manager_ID, asignId = @item.ID }, FormMethod.Post))
                                                 {
                                                     Html.AntiForgeryToken();
-
-
                                                     <button type="submit" value="AcceptRequest" class="btn btn-success btn btn-sm"><span class="glyphicon glyphicon-arrow-right"></span> Accept</button>
                                                 }
                                             </td>
                                             <td>
-                                                @using (Html.BeginForm("DeleteRequest", "Customer", new { requestid = @item.ID }, FormMethod.Post))
+                                                @using (Html.BeginForm("DeleteRequest", "Customer", new { asignId = @item.ID }, FormMethod.Post))
                                                 {
                                                     Html.AntiForgeryToken();
-
-
                                                     <button type="submit" value="DeleteRequest" class="btn btn-danger btn btn-sm"><span class="glyphicon glyphicon-remove-circle"></span> Reject Request</button>
                                                 }
                                             </td>
@@ -136,32 +138,21 @@
                                     </tr>
                                     @foreach (var item in post)
                                     {
+                                        <tr class="success">
+                                            <td>@Html.DisplayFor(model => item.post_header)</td>
 
-
-
-                                        foreach (var u in user)
-                                        {
-                                            <tr class="success">
-                                                <td>@Html.DisplayFor(model => item.post_desc)</td>
-
-                                                <td>
-                                                    @Html.DisplayFor(model => u.User_Name)
-
-
-                                                    @using (Html.BeginForm("AssigntoPM", "Customer", new { postid = @item.postID, managerid = u.userID, status = "On Progress" }, FormMethod.Post))
-                                                    {
-                                                        Html.AntiForgeryToken();
-
-
-                                                        <button type="submit" value="AssigntoPM" class="btn btn-success btn btn-sm"><span class="glyphicon glyphicon-arrow-right"></span> Assign</button>
-                                                    }
-                                                </td>
-                                            </tr>
-
-
-                                        }
-
-
+                                            @foreach (var u in user)
+                                            {
+                                            <td>
+                                                @Html.DisplayFor(model => u.User_Name)
+                                                @using (Html.BeginForm("AssigntoPM", "Customer", new { postid = @item.postID, managerid = u.userID }, FormMethod.Post))
+                                                {
+                                                    Html.AntiForgeryToken();
+                                                    <button type="submit" value="AssigntoPM" class="btn btn-success btn btn-sm"><span class="glyphicon glyphicon-arrow-right"></span> Assign</button>
+                                                }
+                                            </td>
+                                            }
+                                        </tr>
                                     }
                                 </table>
 
@@ -188,7 +179,7 @@
                     </tr>
                     <tr>
                         <td class="danger"> Job Description </td>
-                        <td class="success"><strong>@jop</strong></td>
+                        <td class="success"><strong>@job</strong></td>
                     </tr>
                     <tr>
                         <td class="danger">Mobile  </td>

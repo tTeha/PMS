@@ -17,6 +17,8 @@ namespace PMS02.Models
         public int? UserID { get; set; }
 
         public int? post_ID { get; set; }
+        
+        public bool? Respond { get; set; }
 
         public virtual Post Post { get; set; }
 

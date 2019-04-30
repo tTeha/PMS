@@ -5,6 +5,7 @@ namespace PMS02.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Web;
 
     [Table("User")]
     public partial class User
@@ -39,16 +40,11 @@ namespace PMS02.Models
         [Required]
         [StringLength(200)]
         public string password { get; set; }
-
-      
+        
 
         [Required]
         [StringLength(200)]
         public string Email { get; set; }
-
-        [Required]
-        [StringLength(200)]
-        public string Photo { get; set; }
 
         [Required]
         [StringLength(200)]
@@ -66,13 +62,12 @@ namespace PMS02.Models
         [StringLength(200)]
         public string Mobile { get; set; }
 
-        [Required]
-        [StringLength(200)]
-        public string Type { get; set; }
+        public string photo { get; set; }
+        [NotMapped]
+        public HttpPostedFileBase photoFile { get; set; }
 
-        [Required]
-        [StringLength(200)]
-        public string IsEmailVerified { get; set; }
+        //public UserType Type { get; set; }
+
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Asign_Project> Asign_Project { get; set; }

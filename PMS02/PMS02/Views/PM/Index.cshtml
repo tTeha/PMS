@@ -1,21 +1,17 @@
 ﻿@model IEnumerable<object>
 @{
-    Session["First"] = "first_name";
-    Session["Last"] = "last_name";
-    Session["Mobile"] = "01141336724";
-    Session["jop"] = "PM";
-    Session["Role"] = "PM";
-    Session["id"] = 2;
 
     ViewBag.Title = "Project Manager";
     List<PMS02.Models.Project> listposts = Model.ToList()[0] as List<PMS02.Models.Project>;
     List<PMS02.Models.User> listuser = Model.ToList()[1] as List<PMS02.Models.User>;
+    List<PMS02.Models.Post> listFreePosts = Model.ToList()[2] as List<PMS02.Models.Post>;
+
     byte[] photo = (byte[])Session["photo"];
     var img = "";
     var first = Session["First"];
     var last = Session["Last"];
     var mobile = Session["Mobile"];
-    var jop = Session["jop"];
+    var job = Session["Job"];
     var role = Session["Role"];
     var id = Session["id"];
 }
@@ -42,7 +38,7 @@
                     </tr>
                     <tr>
                         <td class="danger"> Job Description </td>
-                        <td class="success"><strong>@jop</strong></td>
+                        <td class="success"><strong>@job</strong></td>
                     </tr>
                     <tr>
                         <td class="danger">Mobile  </td>
@@ -260,6 +256,54 @@
 
                 </div>
 
+                <div class="row ">
+                    <div class="col-sm-12">
+                        <div class="panel panel-success" style="max-height:500px ;min-height:500px;overflow-y:scroll">
+                            <div class="panel-heading">
+                                Projects To Apply
+                            </div>
+                            <div class="panel-body table-responsive ">
+
+                                <table class="table table-condensed table-bordered table-hover ">
+                                    <tr class="danger text-capitalize">
+                                        <th>
+                                            Project Details
+                                        </th>
+                                        <th>
+                                            Posted by
+                                        </th>
+                                        <th>Send Request</th>
+                                    </tr>
+
+                                    @foreach (var item in listFreePosts)
+                                    {
+                                            <tr class="success text-capitalize">
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.post_header)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.User.Email)
+                                                </td>
+                                                <td>
+                                                    @using (Html.BeginForm("ApplyPost", "PM", new { senderid = id, postId = @item.postID }, FormMethod.Post))
+                                                        {
+                                                            Html.AntiForgeryToken();
+                                                            <input id="Text1" type="email" required name="mail" />
+                                                            <button type="submit" value="SendRequest" class="btn btn-primary btn btn-sm"><span class="glyphicon glyphicon-send"></span>Send</button>
+                                                        }
+
+                                                </td>
+                                            </tr>
+                                    }
+                                </table>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
 
             </div>
 

@@ -22,6 +22,7 @@ namespace PMS02.Models
         public virtual DbSet<Sending_Request> Sending_Request { get; set; }
         public virtual DbSet<Responding_Request> Responding_Request { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<UserType> UserType { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Comment>()
@@ -84,6 +85,11 @@ namespace PMS02.Models
                 .WithOptional(e => e.Sending_Request)
                 .HasForeignKey(e => e.Request_ID);
 
+
+            //modelBuilder.Entity<UserType>()
+            //    .Property(e => e.Role)
+            //    .IsFixedLength();
+
             modelBuilder.Entity<User>()
                 .Property(e => e.User_Name)
                 .IsFixedLength();
@@ -95,11 +101,7 @@ namespace PMS02.Models
             modelBuilder.Entity<User>()
                 .Property(e => e.Email)
                 .IsFixedLength();
-
-            modelBuilder.Entity<User>()
-                .Property(e => e.Photo)
-                .IsFixedLength();
-
+            
             modelBuilder.Entity<User>()
                 .Property(e => e.Job_Description)
                 .IsFixedLength();
@@ -115,15 +117,7 @@ namespace PMS02.Models
             modelBuilder.Entity<User>()
                 .Property(e => e.Mobile)
                 .IsFixedLength();
-
-            modelBuilder.Entity<User>()
-                .Property(e => e.Type)
-                .IsFixedLength();
-
-            modelBuilder.Entity<User>()
-                .Property(e => e.IsEmailVerified)
-                .IsFixedLength();
-
+            
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Asign_Project)
                 .WithOptional(e => e.User)

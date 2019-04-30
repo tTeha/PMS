@@ -16,43 +16,33 @@ namespace PMS02.Controllers
         public ActionResult Index()
         {
             List<object> project = new List<object>();
+            
+            int id = (int)Session["id"];
+            var allProjects = from c in db.Project
+                              where c.Post.userID == id
+                              select c;
+            project.Add(allProjects.ToList());
 
-            //  var projects = db.Projects.Include(p => p.Post).Include(p => p.User);
-            var id = 1;
-            var v = from c in db.Project where c.Post.userID == id select c;
-            project.Add(v.ToList());
-            var request = from req in db.Sending_Request where req.Reciever_ID == id select req;
-            var filter = from f in request
-                         where !
-                         (
-                             from p in db.Project
-                             select p.postID
+            var asign_ = from asign in db.Asign_Project
+                          where
+                          asign.UserID == id
+                          && asign.Respond == false
+                          select asign;
+            project.Add(asign_.ToList());
 
-
-                         ).Contains(f.Project_ID)
-                         select f;
-            project.Add(filter.ToList());
-
-            var result = from y in db.Post
-                         where (
-                             from x in db.Responding_Post
-
-                             select x.Post_ID
-                         ).Contains(y.postID)
-                         select y;
-            var userid = 1;
-            var filterpost = from filterpos in result
-                             where filterpos.userID == userid && !(
-                                       from x in db.Project
-
-                                       select x.postID
-                                   ).Contains(filterpos.postID)
-
-                             select filterpos;
-
-            var user = from u in db.User where u.Job_Description == "PM" select u;
-            project.Add(filterpost.ToList());
+            var not_asign_ = from y in db.Post
+                             where
+                             !(
+                                from x in db.Asign_Project
+                                where x.UserID == id
+                                select x.post_ID
+                             ).Contains(y.postID)
+                             select y;
+            project.Add(not_asign_.ToList());
+            
+            var user = from u in db.User where u.Job_Description == "Project Manager" select u;
             project.Add(user.ToList());
+
             return View(project);
         }
 
@@ -83,6 +73,7 @@ namespace PMS02.Controllers
             }
             return View();
         }
+
         [HttpPost]
         public ActionResult Deleteposts(int postid)
         {
@@ -98,44 +89,52 @@ namespace PMS02.Controllers
         }
 
         [HttpPost]
-        public ActionResult AcceptRequest(int postid, int ManagerID, int requestid, Project project)
+        public ActionResult AcceptRequest(int postid, int ManagerID, int asignId, Project project)
         {
             project.postID = postid;
             project.Project_Manager_ID = ManagerID;
             project.status = "On Progress";
             db.Project.Add(project);
-            Sending_Request req = db.Sending_Request.Find(requestid);
-            db.Sending_Request.Remove(req);
+            Asign_Project asign = db.Asign_Project.Find(asignId);
+            if (asign == null)
+                return HttpNotFound();
+            asign.Respond = true;
             db.SaveChanges();
+            return RedirectToAction("Index", "Customer");
+        }
+        
+        //conceling the use request
+        [HttpPost]
+        public ActionResult DeleteRequest(int asignId, Asign_Project asign)
+        {
 
-
+            asign = db.Asign_Project.Find(asignId);
+            db.Asign_Project.Remove(asign);
+            db.SaveChanges();
 
             return RedirectToAction("Index", "Customer");
         }
 
         //assign project ot project manager
         [HttpPost]
-        public ActionResult AssigntoPM(int postid, int managerid, string stat, Project project)
+        public ActionResult AssigntoPM(int postid, int managerid, Project project, Asign_Project send)
         {
+            int id = (int)Session["id"];
+            send.Project_Manager_ID = managerid;
+            send.post_ID = postid;
+            send.UserID = id;
+            send.Respond = true;
+            db.Asign_Project.Add(send);
+
             project.postID = postid;
             project.Project_Manager_ID = managerid;
-            project.status = stat;
+            project.status = "On Progress";
             db.Project.Add(project);
             db.SaveChanges();
 
             return RedirectToAction("Index", "Customer");
         }
-        //conceling the use request
-        [HttpPost]
-        public ActionResult DeleteRequest(int requestid, Sending_Request req)
-        {
-
-            req = db.Sending_Request.Find(requestid);
-            db.Sending_Request.Remove(req);
-            db.SaveChanges();
-
-            return RedirectToAction("Index", "Customer");
-        }
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)

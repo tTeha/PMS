@@ -15,7 +15,6 @@ namespace PMS02.Controllers
         //[Authorize(Roles = "TL")]
         public ActionResult Index()
         {
-            Session["id"] = 3;
             List<object> TL = new List<object>();
             var id = (int)Session["id"];
 
@@ -41,7 +40,7 @@ namespace PMS02.Controllers
                               where y.Respond == true
                               select y.Reciever_ID
                              ).Contains(w.userID)
-                             && w.Type == "4"
+                             && w.Job_Description == "JD"
                          select w;
             TL.Add(members.ToList());
 
@@ -52,7 +51,7 @@ namespace PMS02.Controllers
         public ActionResult AcceptORreject(int requestid, bool stat, Sending_Request respond)
         {
            respond = db.Sending_Request.Find(requestid);
-            if (respond == null)
+           if (respond == null)
             {
                 return HttpNotFound();
             }
