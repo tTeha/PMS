@@ -241,53 +241,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904260359508_InitialMigration.cs" />
-    <Compile Include="Migrations\201904260359508_InitialMigration.Designer.cs">
-      <DependentUpon>201904260359508_InitialMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904262132150_AddNewTable.cs" />
-    <Compile Include="Migrations\201904262132150_AddNewTable.Designer.cs">
-      <DependentUpon>201904262132150_AddNewTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904272336384_new migartions.cs" />
-    <Compile Include="Migrations\201904272336384_new migartions.Designer.cs">
-      <DependentUpon>201904272336384_new migartions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904290309481_AddProjectFKtoRespondingRequestTable.cs" />
-    <Compile Include="Migrations\201904290309481_AddProjectFKtoRespondingRequestTable.Designer.cs">
-      <DependentUpon>201904290309481_AddProjectFKtoRespondingRequestTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904290348515_EditRespondinSendingRequestTable.cs" />
-    <Compile Include="Migrations\201904290348515_EditRespondinSendingRequestTable.Designer.cs">
-      <DependentUpon>201904290348515_EditRespondinSendingRequestTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904290454068_m.cs" />
-    <Compile Include="Migrations\201904290454068_m.Designer.cs">
-      <DependentUpon>201904290454068_m.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904292127325_w.cs" />
-    <Compile Include="Migrations\201904292127325_w.Designer.cs">
-      <DependentUpon>201904292127325_w.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904292135578_z.cs" />
-    <Compile Include="Migrations\201904292135578_z.Designer.cs">
-      <DependentUpon>201904292135578_z.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904292150589_a.cs" />
-    <Compile Include="Migrations\201904292150589_a.Designer.cs">
-      <DependentUpon>201904292150589_a.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904292213361_b.cs" />
-    <Compile Include="Migrations\201904292213361_b.Designer.cs">
-      <DependentUpon>201904292213361_b.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904292254565_c.cs" />
-    <Compile Include="Migrations\201904292254565_c.Designer.cs">
-      <DependentUpon>201904292254565_c.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904300126570_d.cs" />
-    <Compile Include="Migrations\201904300126570_d.Designer.cs">
-      <DependentUpon>201904300126570_d.cs</DependentUpon>
+    <Compile Include="Migrations\201904300801297_ha.cs" />
+    <Compile Include="Migrations\201904300801297_ha.Designer.cs">
+      <DependentUpon>201904300801297_ha.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Asign_Project.cs" />
@@ -323,41 +279,8 @@
     <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904260359508_InitialMigration.resx">
-      <DependentUpon>201904260359508_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904262132150_AddNewTable.resx">
-      <DependentUpon>201904262132150_AddNewTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904272336384_new migartions.resx">
-      <DependentUpon>201904272336384_new migartions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904290309481_AddProjectFKtoRespondingRequestTable.resx">
-      <DependentUpon>201904290309481_AddProjectFKtoRespondingRequestTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904290348515_EditRespondinSendingRequestTable.resx">
-      <DependentUpon>201904290348515_EditRespondinSendingRequestTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904290454068_m.resx">
-      <DependentUpon>201904290454068_m.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904292127325_w.resx">
-      <DependentUpon>201904292127325_w.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904292135578_z.resx">
-      <DependentUpon>201904292135578_z.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904292150589_a.resx">
-      <DependentUpon>201904292150589_a.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904292213361_b.resx">
-      <DependentUpon>201904292213361_b.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904292254565_c.resx">
-      <DependentUpon>201904292254565_c.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904300126570_d.resx">
-      <DependentUpon>201904300126570_d.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904300801297_ha.resx">
+      <DependentUpon>201904300801297_ha.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
