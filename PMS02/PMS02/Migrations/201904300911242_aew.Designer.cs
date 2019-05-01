@@ -7,13 +7,13 @@ namespace PMS02.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class ha : IMigrationMetadata
+    public sealed partial class aew : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ha));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(aew));
         
         string IMigrationMetadata.Id
         {
-            get { return "201904300801297_ha"; }
+            get { return "201904300911242_aew"; }
         }
         
         string IMigrationMetadata.Source

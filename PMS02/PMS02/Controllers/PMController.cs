@@ -17,25 +17,29 @@ namespace PMS02.Controllers
         //[Authorize(Roles = "PM")]
         public ActionResult Index()
         {
-            List<object> listprojects = new List<object>();
-            var id = (int)Session["id"];
+            if (Session["id"] != null)
+            {
+                List<object> listprojects = new List<object>();
+                var id = (int)Session["id"];
 
-            MyModel db = new MyModel();
-            listprojects.Add(db.Project.ToList());
+                MyModel db = new MyModel();
+                listprojects.Add(db.Project.ToList());
 
-            var user = from u in db.User where u.Job_Description.Trim() == "Team Leader" || u.Job_Description.Trim() == "Junior Developer" select u;
-            listprojects.Add(user.ToList());
+                var user = from u in db.User where u.Job_Description.Trim() == "Team Leader" || u.Job_Description.Trim() == "Junior Developer" select u;
+                listprojects.Add(user.ToList());
 
-            var freePosts = from y in db.Post
-                         where 
-                         !(
-                            from x in db.Asign_Project
-                            where x.Project_Manager_ID == id
-                            select x.post_ID
-                         ).Contains(y.postID)
-                         select y;
-            listprojects.Add(freePosts.ToList());
-            return View(listprojects);
+                var freePosts = from y in db.Post
+                                where
+                                !(
+                                   from x in db.Asign_Project
+                                   where x.Project_Manager_ID == id
+                                   select x.post_ID
+                                ).Contains(y.postID)
+                                select y;
+                listprojects.Add(freePosts.ToList());
+                return View(listprojects);
+            }
+            return RedirectToAction("Index", "Home");
         }
         
         [HttpPost]
@@ -140,19 +144,22 @@ namespace PMS02.Controllers
 
         public ActionResult getMember(int projectId)
         {
-            
-            List<object> member = new List<object>();
-            var result = from w in db.User
-                         where
-                            (from y in db.Sending_Request
-                             where y.Respond == true
-                                   && y.Project_ID == projectId
-                             select y.Reciever_ID
-                             ).Contains(w.userID)
-                         select w;
+            if (Session["id"] != null)
+            {
+                List<object> member = new List<object>();
+                var result = from w in db.User
+                             where
+                                (from y in db.Sending_Request
+                                 where y.Respond == true
+                                       && y.Project_ID == projectId
+                                 select y.Reciever_ID
+                                 ).Contains(w.userID)
+                             select w;
 
-            member.Add(result.ToList());
-            return View(member);
+                member.Add(result.ToList());
+                return View(member);
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]

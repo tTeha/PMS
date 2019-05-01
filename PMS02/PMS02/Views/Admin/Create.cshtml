@@ -48,11 +48,11 @@ else
             <div class="form-group">
                 @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", @type="password" } })
+                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
                     @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
                 </div>
             </div>
-            
+
             <div class="form-group">
                 @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -61,50 +61,43 @@ else
                     @Html.ValidationMessage("Exist", new { @class = "text-danger" })
                 </div>
             </div>
-
             <div class="form-group">
                 @Html.LabelFor(model => model.Job_Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.Job_Description, new SelectList(new[] { "Admin", "PM", "TL", "JE", "Customer" }), new { @class = "form-control" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(model => model.Job_Description, new SelectList(new[] { "Customer", "Project Manager", "Team Leader", "Junior Developer" }), new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Job_Description, "", new { @class = "text-danger" })
                 </div>
             </div>
-
             <div class="form-group">
                 @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-6">
                     @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
                 </div>
             </div>
+
+
             <div class="form-group">
-                @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.photo, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.Type, new SelectList(new[] { "Admin", "PM", "TL", "JE", "Customer" }), new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(model => model.Photo, new { Type = "file" })
-                    @Html.ValidationMessageFor(model => model.Photo, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(model => model.photoFile, new { @type = "file" })
+                    @Html.ValidationMessageFor(model => model.photoFile, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-success" />
+                    <input type="submit" value="Create" class="btn btn-primary" />
                 </div>
             </div>
         </div>
-
         if (ViewBag.Message != null)
         {
             <div class="alert alert-danger">
                 <strong>Error! </strong> @ViewBag.Message
             </div>
         }
+        
     }
 }
 

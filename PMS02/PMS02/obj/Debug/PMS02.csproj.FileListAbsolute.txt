@@ -240,5 +240,6 @@ C:\Users\omar\Desktop\test\PMS\PMS02\PMS02\bin\System.Web.Mvc.xml
 C:\Users\omar\Desktop\test\PMS\PMS02\PMS02\obj\Debug\PMS02.csprojResolveAssemblyReference.cache
 C:\Users\omar\Desktop\test\PMS\PMS02\PMS02\obj\Debug\PMS02.dll
 C:\Users\omar\Desktop\test\PMS\PMS02\PMS02\obj\Debug\PMS02.pdb
-C:\Users\omar\Desktop\test\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.ha.resources
+C:\Users\omar\Desktop\test\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.Initial.resources
 C:\Users\omar\Desktop\test\PMS\PMS02\PMS02\obj\Debug\PMS02.csproj.GenerateResource.Cache
+C:\Users\omar\Desktop\test\PMS\PMS02\PMS02\obj\Debug\PMS02.Migrations.aew.resources

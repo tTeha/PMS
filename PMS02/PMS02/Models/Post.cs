@@ -30,10 +30,6 @@ namespace PMS02.Models
         [StringLength(50)]
         public string post_desc { get; set; }
 
-        public DateTime created_date { get; set; }
-
-        public DateTime updated_date { get; set; }
-
         public int userID { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

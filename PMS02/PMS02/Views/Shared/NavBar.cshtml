@@ -43,13 +43,13 @@
                     }
 
                     
-                    <li><a href="@Url.Action("Index", "Admin")"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                    <li><a href="@Url.Action("Logout", "Home")"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
                     
                 }
                 else
                 {
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> SignUp</a></li>
+                    <li><a href="@Url.Action("login", "Home")"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li><a href="@Url.Action("register", "Home")"><span class="glyphicon glyphicon-log-in"></span> SignUp</a></li>
                 }
                 
             </ul>

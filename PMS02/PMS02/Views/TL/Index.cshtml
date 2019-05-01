@@ -1,12 +1,5 @@
 ﻿@model IEnumerable<object>
 @{
-    Session["First"] = "first_name";
-    Session["Last"] = "last_name";
-    Session["Mobile"] = "01141336724";
-    Session["jop"] = "TL";
-    Session["Role"] = "TL";
-    Session["id"] = 3;
-
     ViewBag.Title = "Team Leader";
     List<PMS02.Models.Sending_Request> req = Model.ToList()[0] as List<PMS02.Models.Sending_Request>;
     List<PMS02.Models.Project> pro = Model.ToList()[1] as List<PMS02.Models.Project>;
@@ -16,12 +9,12 @@
     var first = Session["First"];
     var last = Session["Last"];
     var mobile = Session["Mobile"];
-    var jop = Session["jop"];
+    var jop = Session["Job"];
     var role = Session["Role"];
     var id = Session["id"];
 }
 
-@if (true)
+@if ((string)role == "Team Leader")
 {
 
     <div class="container-fluid text-center">
@@ -106,7 +99,7 @@
                                                     Html.AntiForgeryToken();
 
 
-                                                    <button type="submit" value="Accept" class="btn btn-danger btn btn-sm"><span class="glyphicon glyphicon-arrow-right"></span> Accept Request</button>
+                                                    <button type="submit" value="Accept" class="btn btn-primary btn btn-sm"><span class="glyphicon glyphicon-arrow-right"></span> Accept Request</button>
                                                 }
 
                                             </td>

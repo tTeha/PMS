@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using PMS02.Models;
 using System.Net.Mail;
+using System.IO;
+
 namespace PMS02.Controllers
 {
     public class AdminController : Controller
@@ -17,19 +19,23 @@ namespace PMS02.Controllers
 
         public ActionResult Index()
         {
-            List<object> mymodel = new List<object>();
-            mymodel.Add(db.User.ToList());
-            var result = from y in db.Post
-                         where !(
-                             from x in db.Responding_Post
+            if (Session["id"] != null)
+            {
+                List<object> mymodel = new List<object>();
+                mymodel.Add(db.User.ToList());
+                var result = from y in db.Post
+                             where !(
+                                 from x in db.Responding_Post
 
-                             select x.Post_ID
-                         ).Contains(y.userID)
-                         select y;
-            mymodel.Add(result.ToList());
+                                 select x.Post_ID
+                             ).Contains(y.userID)
+                             select y;
+                mymodel.Add(result.ToList());
 
 
-            return View(mymodel);
+                return View(mymodel);
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Create()
@@ -42,59 +48,51 @@ namespace PMS02.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Exclude = "")] User user)
+        public ActionResult Create(User user)
         {
-
-
-            bool Status = false;
-            string message = "";
-
-            if (ModelState.IsValid)
+            if (Session["id"] != null)
             {
+                bool Status = false;
+                string message = "";
 
-                #region // Email validation 
-                var isexsist = ISemailExisit(user.Email);
-                if (isexsist)
+                if (ModelState.IsValid)
                 {
-                    ModelState.AddModelError("Exist", "Email Already Exsit");
-                    return View(user);
-                }
+                    #region // Email validation 
+                    var isexsist = ISemailExisit(user.Email);
+                    if (isexsist)
+                    {
+                        ModelState.AddModelError("Exist", "Email Already Exsit");
+                        return View(user);
+                    }
+                    #endregion
 
-                #endregion
+                    #region // password Hashing
+                    user.password = crypto.Hash(user.password);
+                    #endregion
 
-                #region // password Hashing
-                user.password = crypto.Hash(user.password);
-                //user.confirmpassword = crypto.Hash(user.confirmpassword);
-                #endregion
-
-                #region // Convert a photo to binary 
-                //byte[] data = new byte[user.Photo.ContentLength];
-                //user.Photo.InputStream.Read(data, 0, user.Photo.ContentLength);
-                #endregion
-
-
-                Console.WriteLine(user);
-                #region // save to the database 
-                using (MyModel db = new MyModel())
-                {
+                    string FileName = Path.GetFileNameWithoutExtension(user.photoFile.FileName);
+                    string FileExtension = Path.GetExtension(user.photoFile.FileName);
+                    Random rnd = new Random();
+                    int r = rnd.Next();
+                    FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + r.ToString() + FileName.Trim() + FileExtension;
+                    string path = Path.Combine(Server.MapPath("~/Content/Images/"), FileName);
+                    user.photo = "Content/Images" + FileName;
 
                     db.User.Add(user);
                     db.SaveChanges();
+                    user.photoFile.SaveAs(path);
+                    message = "Registeraton successfully done !we have sent an activation link to your Email " + user.Email;
                     Status = true;
                 }
-                #endregion
-
+                else
+                {
+                    message = "Invalid Request";
+                }
+                ViewBag.Message = message;
+                ViewBag.Status = Status;
+                return View(user);
             }
-
-
-
-            else
-            {
-                message = "Invalid Request";
-            }
-
-            ViewBag.Status = Status;
-            return View(user);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Admin/Delete/5

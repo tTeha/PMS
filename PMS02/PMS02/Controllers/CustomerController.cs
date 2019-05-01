@@ -15,35 +15,38 @@ namespace PMS02.Controllers
         private MyModel db = new MyModel();
         public ActionResult Index()
         {
-            List<object> project = new List<object>();
-            
-            int id = (int)Session["id"];
-            var allProjects = from c in db.Project
-                              where c.Post.userID == id
-                              select c;
-            project.Add(allProjects.ToList());
+            if (Session["id"] != null)
+            {
+                List<object> project = new List<object>();
+                int id = (int)Session["id"];
+                var allProjects = from c in db.Project
+                                  where c.Post.userID == id
+                                  select c;
+                project.Add(allProjects.ToList());
 
-            var asign_ = from asign in db.Asign_Project
-                          where
-                          asign.UserID == id
-                          && asign.Respond == false
-                          select asign;
-            project.Add(asign_.ToList());
-
-            var not_asign_ = from y in db.Post
+                var asign_ = from asign in db.Asign_Project
                              where
-                             !(
-                                from x in db.Asign_Project
-                                where x.UserID == id
-                                select x.post_ID
-                             ).Contains(y.postID)
-                             select y;
-            project.Add(not_asign_.ToList());
-            
-            var user = from u in db.User where u.Job_Description == "Project Manager" select u;
-            project.Add(user.ToList());
+                             asign.UserID == id
+                             && asign.Respond == false
+                             select asign;
+                project.Add(asign_.ToList());
 
-            return View(project);
+                var not_asign_ = from y in db.Post
+                                 where
+                                 !(
+                                    from x in db.Asign_Project
+                                    where x.UserID == id
+                                    select x.post_ID
+                                 ).Contains(y.postID)
+                                 select y;
+                project.Add(not_asign_.ToList());
+
+                var user = from u in db.User where u.Job_Description == "Project Manager" select u;
+                project.Add(user.ToList());
+
+                return View(project);
+            }
+            return RedirectToAction("login","Home");
         }
 
         public ActionResult Edit(int? id)

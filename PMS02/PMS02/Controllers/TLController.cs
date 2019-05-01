@@ -11,40 +11,45 @@ namespace PMS02.Controllers
     {
         
         private MyModel db = new MyModel();
-
-        //[Authorize(Roles = "TL")]
+        
         public ActionResult Index()
         {
-            List<object> TL = new List<object>();
-            var id = (int)Session["id"];
+            if (Session["id"] != null)
+            {
 
-            var result = from y in db.Sending_Request
-                         where y.Respond == false
-                               && y.Reciever_ID == id
-                         select y;
-            TL.Add(result.ToList());
 
-            var project = from c in db.Project
-                          where (
-                                from y in db.Sending_Request
-                                where y.Respond == true
-                                && y.Reciever_ID == id
-                                select y.Project_ID
-                                ).Contains(c.projectID)
-                          select c;
-            TL.Add(project.ToList());
+                List<object> TL = new List<object>();
+                var id = (int)Session["id"];
 
-            var members = from w in db.User
-                         where
-                            !(from y in db.Sending_Request
-                              where y.Respond == true
-                              select y.Reciever_ID
-                             ).Contains(w.userID)
-                             && w.Job_Description == "JD"
-                         select w;
-            TL.Add(members.ToList());
+                var result = from y in db.Sending_Request
+                             where y.Respond == false
+                                   && y.Reciever_ID == id
+                             select y;
+                TL.Add(result.ToList());
 
-            return View(TL);
+                var project = from c in db.Project
+                              where (
+                                    from y in db.Sending_Request
+                                    where y.Respond == true
+                                    && y.Reciever_ID == id
+                                    select y.Project_ID
+                                    ).Contains(c.projectID)
+                              select c;
+                TL.Add(project.ToList());
+
+                var members = from w in db.User
+                              where
+                                 !(from y in db.Sending_Request
+                                   where y.Respond == true
+                                   select y.Reciever_ID
+                                  ).Contains(w.userID)
+                                  && w.Job_Description == "JD"
+                              select w;
+                TL.Add(members.ToList());
+
+                return View(TL);
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]

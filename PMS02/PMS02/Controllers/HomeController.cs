@@ -15,11 +15,10 @@ namespace PMS02.Controllers
     public class HomeController : Controller
     {
         MyModel db = new MyModel();
-        //[Authorize(Roles = "Customer,Admin,PM,TL,JE")]
         public ActionResult Index()
         {
             List<object> mylsit = new List<object>();
-            /*
+            
              var result = from y in db.Post
                           where (
                                  from x in db.Responding_Post
@@ -27,16 +26,8 @@ namespace PMS02.Controllers
                                   ).Contains(y.postID)
                           select y;
 
-             var z = from f in result
-                     where
-                     !(
-                      from p in db.Project
-                      select p.postID
-                      ).Contains(f.userID)
-                     select f;
-
-             mylsit.Add(z.ToList());
-             */
+            mylsit.Add(result.ToList());
+             
             mylsit.Add(db.Sending_Request.ToList());
             return View(mylsit);
         }
@@ -71,7 +62,7 @@ namespace PMS02.Controllers
                 #region // password Hashing
                 user.password = crypto.Hash(user.password);
                 #endregion
-                
+                /*
                 string FileName = Path.GetFileNameWithoutExtension(user.photoFile.FileName);
                 string FileExtension = Path.GetExtension(user.photoFile.FileName);
                 Random rnd = new Random();
@@ -79,10 +70,10 @@ namespace PMS02.Controllers
                 FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + r.ToString() + FileName.Trim() + FileExtension;
                 string path = Path.Combine(Server.MapPath("~/Content/Images/"), FileName);
                 user.photo = "Content/Images" + FileName;
-                
+                */
+                user.photo = "";
                 db.User.Add(user);
                 db.SaveChanges();
-                user.photoFile.SaveAs(path);
                 message = "Registeraton successfully done !we have sent an activation link to your Email " + user.Email;
                 Status = true;
             }
@@ -98,14 +89,14 @@ namespace PMS02.Controllers
         [HttpGet]
         public ActionResult login()
         {
-            /*
+         
             if (Session["First"] == null)
             {
                 return View();
             }
             else
                 return RedirectToAction("Index", "Home");
-            */
+            
             return View();
 
         }
@@ -164,11 +155,9 @@ namespace PMS02.Controllers
             return View();
         }
 
-        [Authorize]
-        [HttpPost]
+        
         public ActionResult Logout()
         {
-            FormsAuthentication.SignOut();
             Session.Clear();
             return RedirectToAction("login", "Home");
 
@@ -177,35 +166,41 @@ namespace PMS02.Controllers
         [HttpGet]
         public ActionResult PostNewProject()
         {
+            if (Session["id"] != null)
+            {
 
-            return View();
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
         // [ValidateAntiForgeryToken]
         public ActionResult PostNewProject(Post post)
         {
-            var role = Session["Role"];
-            var id = Session["id"];
-            post.userID = (int)id;
-            if (ModelState.IsValid)
+            if (Session["id"] != null)
             {
-                if ((string)role != "Customer")
+                
+                var role = Session["Role"];
+                var id = Session["id"];
+                if ((string)Session["Role"] == "Customer")
                 {
-                    ModelState.AddModelError("Not Allowd", "You are not allowed to post a project");
-                    return View();
-                }
-                else
-                    using (MyModel db = new MyModel())
+                    if (ModelState.IsValid)
                     {
+
+                        post.userID = (int)id;
+
                         db.Post.Add(post);
                         db.SaveChanges();
                     }
 
+                    return RedirectToAction("Index", "Customer");
+                }
+                return RedirectToAction("Index", "Home");
 
             }
-            return RedirectToAction("Index", "Home");
 
+            return RedirectToAction("login", "Home");
 
         }
         [NonAction]

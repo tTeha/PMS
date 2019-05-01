@@ -241,9 +241,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904300801297_ha.cs" />
-    <Compile Include="Migrations\201904300801297_ha.Designer.cs">
-      <DependentUpon>201904300801297_ha.cs</DependentUpon>
+    <Compile Include="Migrations\201904300810231_Initial.cs" />
+    <Compile Include="Migrations\201904300810231_Initial.Designer.cs">
+      <DependentUpon>201904300810231_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904300911242_aew.cs" />
+    <Compile Include="Migrations\201904300911242_aew.Designer.cs">
+      <DependentUpon>201904300911242_aew.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Asign_Project.cs" />
@@ -279,8 +283,11 @@
     <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904300801297_ha.resx">
-      <DependentUpon>201904300801297_ha.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904300810231_Initial.resx">
+      <DependentUpon>201904300810231_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904300911242_aew.resx">
+      <DependentUpon>201904300911242_aew.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

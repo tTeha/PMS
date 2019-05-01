@@ -2,17 +2,17 @@
 @{
     ViewBag.Title = "Projects Management";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    //List<PMS02.Models.Post> list = Model.ToList()[0] as List<PMS02.Models.Post>;
+    List<PMS02.Models.Post> list = Model.ToList()[0] as List<PMS02.Models.Post>;
     List<PMS02.Models.Sending_Request> requestlist = Model.ToList()[0] as List<PMS02.Models.Sending_Request>;
     //byte[] photo = (byte[])Session["photo"];
     // var base64 = Convert.ToBase64String(photo);
     //var img = string.Format("data:image/jpg;base64,{0}", base64);
-    var first = "fname";
-    var last = "lname";
-    var mobile = 5555;
-    var jop = "7aramy";
-    var role = "ay 7aga";
-    var id = 1;
+    var first = Session["First"];
+    var last = Session["Last"];
+    var mobile = Session["Mobile"];
+    var jop = Session["job"];
+    var role = Session["Role"];
+    var id = Session["id"];
 }
 
 <div class="container">
@@ -44,28 +44,25 @@
                                 <th>
                                     Posted By
                                 </th>
-                                @if ((string)role == "PM")
+                                @foreach (var post in list)
                                 {
-                                    <th>
-                                        Select
-                                    </th>
-                                    <th>
-                                        Report This User
-                                    </th>
+                                <tr class="success">
+
+                                    <td>
+                                        @Html.DisplayFor(model => post.post_header)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(model => post.User.User_Name)
+                                    </td>
+
+
+
+
+                                </tr>
+
 
                                 }
-
-                                else if ((string)role == "Customer")
-                                {
-                                    <th>
-                                        Update
-                                    </th>
-                                    <th>
-                                        Remove
-
-                                    </th>
-                                }
-                            </tr>
                         </table>
 
                     </div>

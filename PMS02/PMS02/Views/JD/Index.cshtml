@@ -1,12 +1,7 @@
 ﻿@model IEnumerable<object>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    Session["First"] = "first_name";
-    Session["Last"] = "last_name";
-    Session["Mobile"] = "01141336724";
-    Session["jop"] = "JD";
-    Session["Role"] = "JD";
-    Session["id"] = 5;
+   
     ViewBag.Title = "Junior Develiper";
     List<PMS02.Models.Sending_Request> req = Model.ToList()[0] as List<PMS02.Models.Sending_Request>;
     List<PMS02.Models.Project> pro = Model.ToList()[1] as List<PMS02.Models.Project>;
@@ -14,12 +9,12 @@
     var first = Session["First"];
     var last = Session["Last"];
     var mobile = Session["Mobile"];
-    var jop = Session["jop"];
+    var jop = Session["job"];
     var role = Session["Role"];
     var id = Session["id"];
 }
 
-@if (true)
+@if ((string)Session["Role"] == "Junior Develiper")
 {
     <div class="container-fluid text-center">
         <div class="row">
